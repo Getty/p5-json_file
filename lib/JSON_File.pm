@@ -221,3 +221,44 @@ sub UNTIE {}
 sub DESTROY {}
 
 1;
+
+
+=encoding utf8
+
+=head1 SYNOPSIS
+
+  use JSON_File;
+
+  tie(my %data, 'JSON_File','data.json');
+
+  $data{key} = "value"; # data directly stored in file
+  print $data{key};     # data is always read from file, not cached
+
+  tie(my @array, 'JSON_File','array.json');
+
+  push @array, "value";
+
+=head1 DESCRIPTION
+
+This module is allowing you to bind a perl hash or array to a file. The data
+is always read directly from the file and also directly written to the file.
+This means also that if you add several keys to the hash or several elements
+to the array, that every key and every element will let the complete json file
+be rewritten.
+
+=head1 SUPPORT
+
+IRC
+
+  Join #duckduckgo on FreeNode. Highlight Getty for fast reaction :).
+
+Repository
+
+  http://github.com/Getty/p5-json_file
+  Pull request and additional contributors are welcome
+ 
+Issue Tracker
+
+  http://github.com/Getty/p5-yeb/issues
+
+
