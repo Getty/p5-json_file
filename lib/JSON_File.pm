@@ -9,7 +9,39 @@ use autodie;
 has json => (
   is => 'ro',
   lazy => 1,
-  default => sub { JSON->new()->utf8(1) },
+  default => sub {
+    my $self = shift;
+    my $json = JSON->new()->utf8(1)->canonical(1);
+    $json = $json->convert_blessed($self->convert_blessed) if $self->has_convert_blessed;
+    $json = $json->allow_blessed($self->allow_blessed) if $self->has_allow_blessed;
+    $json = $json->allow_unknown($self->allow_unknown) if $self->has_allow_unknown;
+    $json = $json->pretty($self->pretty) if $self->has_pretty;
+    return $json;
+  },
+);
+
+has pretty => (
+  is => 'ro',
+  lazy => 1,
+  predicate => 1,
+);
+
+has allow_unknown => (
+  is => 'ro',
+  lazy => 1,
+  predicate => 1,
+);
+
+has allow_blessed => (
+  is => 'ro',
+  lazy => 1,
+  predicate => 1,
+);
+
+has convert_blessed => (
+  is => 'ro',
+  lazy => 1,
+  predicate => 1,
 );
 
 has filename => (
@@ -228,14 +260,23 @@ sub DESTROY {}
 
   use JSON_File;
 
-  tie(my %data, 'JSON_File','data.json');
+  tie( my %data, 'JSON_File', 'data.json' );
 
   $data{key} = "value"; # data directly stored in file
   print $data{key};     # data is always read from file, not cached
 
-  tie(my @array, 'JSON_File','array.json');
+  tie( my @array, 'JSON_File', 'array.json' );
 
   push @array, "value";
+
+  # you can enable functions of the JSON object:
+
+  tie( my %other, 'JSON_File', 'other.json',
+    pretty => 1,
+    allow_unknown => 1,
+    allow_blessed => 1,
+    convert_blessed => 1,
+  );
 
 =head1 DESCRIPTION
 
@@ -244,6 +285,8 @@ is always read directly from the file and also directly written to the file.
 This means also that if you add several keys to the hash or several elements
 to the array, that every key and every element will let the complete json file
 be rewritten.
+
+This is BETA, defaults may change in the future.
 
 =head1 SUPPORT
 
