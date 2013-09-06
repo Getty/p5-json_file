@@ -258,6 +258,6 @@ Repository
  
 Issue Tracker
 
-  http://github.com/Getty/p5-yeb/issues
+  http://github.com/Getty/p5-json_file/issues
 
 
