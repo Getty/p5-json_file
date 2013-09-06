@@ -196,7 +196,6 @@ sub NEXTKEY {
   my ( $self, $last ) = @_;
   if ($self->tied eq 'HASH') {
     my @sorted_keys = sort { $a cmp $b } keys %{$self->data};
-    my $next;
     while (@sorted_keys) {
       my $key = shift @sorted_keys;
       if ($key eq $last) {
