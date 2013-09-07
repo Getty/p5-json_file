@@ -1,5 +1,5 @@
 package JSON_File;
-# ABSTRACT: Tie a hash or an array to a JSON
+# ABSTRACT: Tie a hash or an array to a JSON data structure
 
 use Moo;
 use JSON::MaybeXS;
@@ -280,10 +280,10 @@ sub DESTROY {}
 
 =head1 DESCRIPTION
 
-This module is allowing you to bind a perl hash or array to a file. The data
+This module allows you to bind a perl hash or array to a file. The data
 is always read directly from the file and also directly written to the file.
-This means also that if you add several keys to the hash or several elements
-to the array, that every key and every element will let the complete json file
+This also means that if you add several keys to the hash or several elements
+to the array, that every key and every element will let the complete JSON file
 be rewritten.
 
 This is BETA, defaults may change in the future.
@@ -297,7 +297,7 @@ IRC
 Repository
 
   http://github.com/Getty/p5-json_file
-  Pull request and additional contributors are welcome
+  Pull requests and additional contributors are welcome.
  
 Issue Tracker
 
