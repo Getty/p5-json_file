@@ -3,7 +3,7 @@ package JSON_File;
 
 use Moo;
 use JSON::MaybeXS;
-use Path::Tiny;
+use Path::Class;
 use autodie;
 
 has json => (
@@ -52,7 +52,7 @@ has filename => (
 has abs_filename => (
   is => 'ro',
   lazy => 1,
-  default => sub { path(shift->filename)->absolute },
+  default => sub { file(shift->filename)->absolute },
 );
 
 has tied => (
