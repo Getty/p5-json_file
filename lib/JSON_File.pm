@@ -265,6 +265,9 @@ sub DESTROY {}
   $data{key} = "value"; # data directly stored in file
   print $data{key};     # data is always read from file, not cached
 
+  $data{hash} = { attribute => "value" };
+  # DON'T set $data{hash}->{attribute} directly, it will not get saved
+
   tie( my @array, 'JSON_File', 'array.json' );
 
   push @array, "value";
@@ -286,13 +289,11 @@ This means also that if you add several keys to the hash or several elements
 to the array, that every key and every element will let the complete json file
 be rewritten.
 
-This is BETA, defaults may change in the future.
-
 =head1 SUPPORT
 
 IRC
 
-  Join #duckduckgo on FreeNode. Highlight Getty for fast reaction :).
+  Join #sycontent on irc.perl.org. Highlight Getty for fast reaction :).
 
 Repository
 
